@@ -1,0 +1,236 @@
+/* 公共样式 */
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+/* 版心 */
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+.style-red {
+    color: orangered;
+}
+.spacer {
+    width: 1px;
+    height: 11px;
+    background-color: #666;
+    margin: 10px 12px 0;
+}
+/* 字体图标 */
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?gr93ag');
+  src:  url('../fonts/icomoon.eot?gr93ag#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?gr93ag') format('truetype'),
+    url('../fonts/icomoon.woff?gr93ag') format('woff'),
+    url('../fonts/icomoon.svg?gr93ag#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+.fr .icomoon {
+    font-family: icomoon;
+    font-size: 15px;
+    line-height: 24px;
+}
+/* 快捷导航 */
+.shortcut{
+    background-color: #f1f1f1;
+    line-height: 31px;
+    height: 31px;
+}
+.shortcut li {
+    float: left;
+}
+.header {
+    height: 150px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+.head_w {
+    position: relative;
+    margin: auto;
+    width: 1200px;
+    height: 150px;
+}
+.logo {
+    position: relative;
+    height: 140px;
+    width: 230px;
+    top: 0px;
+    left: 15px;
+}
+.logo a {
+    display: block;
+    height: 140px;
+    width: 230px;
+    background-clip: border-box;
+    background-image: url(../img/logo.gif);
+    background-size: contain;
+    text-indent: -999px;
+    overflow: hidden;
+    /* font-size: 0; */
+}
+.search {
+    position: absolute;
+    top: 25px;
+    left: 348px;
+}
+.text {
+    float: left;
+    width: 445px;
+    height: 32px;
+    border: 2px solid #b1191a;
+    padding-left: 10px;
+    color: #ccc;
+}
+.btn {
+    float: right;
+    width: 82px;
+    height: 36px;
+    background-color: #b1191a;
+    border: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.hotwords {
+    position: absolute;
+    overflow: hidden;
+    left: 348px;
+    top: 68px;
+    width: 537px;
+    height: 20px;
+}
+.hotwords a {
+    float: left;
+    margin-right: 10px;
+    color: #999;
+}
+.hotwords .style-red {
+    color: #E33333;
+}
+
+.shopcar {
+    position: absolute;
+    top: 25px;
+    right: 64px;
+    width: 138px;
+    height: 34px;
+    border: 1px solid #dfdfdf;
+    background-color: #f7f7f7;
+    line-height: 34px;
+    text-align: center;
+}
+.shopcar a {
+    color: #e1251b;
+}
+.car {
+    margin-right: 13px;
+    font-family: icomoon;
+    font-size: 16px;
+    color: #red;
+    left: 15px;
+    color: #e1251b;
+}
+
+.cont {
+    position: absolute;
+    top: 1px;
+    left: 33px;
+    right: auto;
+    background-color: #e60012;
+    height: 14px;
+    line-height: 14px;
+    padding: 0 3px;
+    font-size: 10px;
+    color: white;
+    border-radius: 7px;
+}
+
+.nav {
+    position: absolute;
+    width: 900px;
+    height: 45px;
+    left: 230px;
+    bottom: 0px;
+}
+
+.navitems {
+    position: absolute;
+    top: 12px;
+    font-size: 16px;
+}
+
+.navitems a {
+    margin-right: 20px;
+    margin-left: 10px;
+}
+.style-red-nav {
+    font-weight: 700;
+    color: #e1251b;
+}
+
+
+.footer {
+    height: 386px;
+    background-color: #f5f5f5;
+    padding-top: 10px;
+}
+.mod_serve {
+    border-bottom: 1px solid #ddd;
+    height: 79px;
+}
+.mod_serve li {
+    height: 79px;
+    float: left;
+    width: 240px;
+}
+.mod_serve_icon {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-left: 50px;
+}
+.mod_serve_tit h5 {
+    margin: 5px 0;
+    
+}
+.mod_serve_zheng {
+    background: url(../img/icons.png) no-repeat -253px -3px;
+}
+.mod_serve_kuai {
+    background: url(../img/icons.png) no-repeat -255px -54px;
+}
+.mod_serve_bao {
+    background: url(../img/icons.png) no-repeat -257px -105px;
+}
+
+.mod_help {
+    height: 187px;
+    border-bottom: 1px solid #ccc;
+}
+.mod_help_list {
+    width: 150px;
+    padding: 20px 0 0 50px;
+}
+.mod_help_list dt {
+    height: 25px;
+    font-size: 16px;
+}
+.mod_help_list dd {
+    height: 22px;
+}
+.mod_help dl {
+    float: left;
+}
+.mod_copyright_link {
+    text-align: center;
+}
+.mod_copyright_info {
+    text-align: center;
+    margin: 20px 0 25px 0;
+}

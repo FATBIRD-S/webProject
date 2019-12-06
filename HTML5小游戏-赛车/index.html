@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+        <style ></style>
+        <link rel="stylesheet" type="text/css" href="css/comon.css"/>
+        
+        
+	</head>
+	<body>
+		<div id="canvasbox">
+		    <canvas id="myCanvas" class="canvas"></canvas>
+            <strong>键盘方向键控制小车，目标用车撞坏敌方所有车辆！</strong>
+            <div class="result">
+                <span class="SP">分数：<span id="score"></span></span>
+                <span class="SP">HP:<span id="HP"></span></span>
+            </div>
+		</div>
+        <script type="text/javascript">
+            var canvas = document.getElementById('myCanvas');
+            var scoreSp = document.getElementById('score');
+            var HPSp = document.getElementById('HP'); 
+            var ctx = canvas.getContext('2d'); //绘图环境
+            var devicePpi = window.devicePixelRatio || 1;
+            var blockSize = 20*devicePpi;
+            var canW = 12;
+            var canH = 6;
+            canvas.width = canW*blockSize;
+            canvas.heigth = canH*blockSize;
+            canvas.style.width = canW*blockSize/devicePpi + 'px';
+            canvas.style.heigth = canH*blockSize/devicePpi + 'px';
+            
+            var emcarShip = [];//放敌方车辆坐标数据
+            
+            var bgX = 0;
+            var mycarX = 0;
+            var mycarY = 0;
+            var grade = 0;
+            var HP = 100;
+            var difficulty = 400;
+            var flush = null;
+            var emMove = null;
+            var creatEmcar = null;
+            var gradeTimer = null;
+            var boomP = null;
+            
+            var bgimage = new Image();
+            var mycar = new Image();
+            var emcar = new Image();
+            var boom = new Image();
+            bgimage.src = "img/bg.png";
+            mycar.src = "img/mycar.png";
+            emcar.src = "img/emcar.png";
+            boom.src = "img/boom.png";
+            
+            
+            function start(){
+            	ctx.clearRect(0,0,canvas.width,canvas.height);//清空画布
+            	ctx.font = String(14*devicePpi)+"px Courier New";//设定字体
+            	ctx.fillStyle = "#333";//设定字颜色
+            	ctx.textAlign="center";//设定字居中
+            	ctx.fillText("点击开始游戏", Math.round(canW*blockSize/2), 50*devicePpi);
+            	canvas.onclick=function(event){
+            		init();
+            	};
+            }
+            
+            
+            function init(){//初始化
+                
+                ctx.clearRect(0,0,canvas.width,canvas.heigth);
+                
+                // emcarCreat();//创建敌车
+                // mycarPaint();//绘制我方车辆
+                // emcarPaint();//绘制敌方车辆
+                
+                clearInterval(flush);
+                clearInterval(emMove);
+                clearInterval(creatEmcar);
+                
+                HPSp.innerHTML = String(HP);
+                scoreSp.innerHTML = String(grade);
+                
+                creatEmcar = setInterval(function(){
+                    emcarCreat();
+                },1000);
+                
+                emMove = setInterval(function(){
+                    emcarMove();
+                    
+                },difficulty);
+                
+                // gradeTimer = setInterval(function(){
+                //     addGrade();
+                // },20)
+                
+                // boomP = setInterval(function(){
+                //     boomPain();
+                // },10);
+                
+                flush = setInterval(function(){
+                    ctx.clearRect(0,0,canvas.width,canvas.heigth);
+                    bgPaint();
+                    emcarPaint();
+                    mycarPaint();
+                    carBoom();
+                    HPchange();
+                },20);
+                
+                
+            }
+          
+            function bgPaint(){//背景绘制
+                
+                ctx.drawImage(bgimage,bgX,0,canvas.width*2,canvas.heigth);
+                bgX = bgX - 5*devicePpi;
+                if(bgX <= -canvas.width){
+                    bgX = 0;
+                }
+            }
+            
+            function mycarPaint(){//己方车辆绘制
+                var mycarNX = mycarX*blockSize;
+                var mycarNY = mycarY*blockSize;
+                ctx.drawImage(mycar,mycarNX,mycarNY,blockSize,blockSize);
+                
+            }
+            
+            function emcarCreat(){//敌车创建
+                var emcarNY = Math.floor(Math.random()*(canH));
+                emcarShip.push([canW,emcarNY,true])
+            }
+            
+            function emcarPaint(){//敌方车辆绘制
+                for(var i = 0; i < emcarShip.length ; i++){
+                    var emcarX = emcarShip[i][0]*blockSize;
+                    var emcarY = emcarShip[i][1]*blockSize;
+                    if(emcarShip[i][2]){//车辆状态true
+                        ctx.drawImage(emcar,emcarX,emcarY,blockSize,blockSize);
+                    }
+                    else{//车辆状态false
+                        ctx.drawImage(boom,emcarX,emcarY,blockSize,blockSize);
+                    }
+                }
+            }
+            
+            function emcarMove(){//敌车移动
+                for(var i = 0; i < emcarShip.length ; i++){
+                    var emcarNX = emcarShip[i][0] - 1;
+                    emcarShip[i][0] = emcarNX;
+                }
+            }
+            
+            function carBoom(){//boom & grade+
+                var carx = mycarX;
+                var cary = mycarY;
+                for(var i = 0; i < emcarShip.length; i++){
+                    if(carx === emcarShip[i][0] && cary === emcarShip[i][1]){//mycar与emcar坐标相等==相撞
+                        if(emcarShip[i][2] === true){//防止重复判定加分
+                            emcarShip[i][2] = false;//车辆存在则改为不存在false
+                            addGrade();
+                        }
+                    }
+                }
+            }
+            
+            // function boomPain(){
+            //     for(var i = 0; i < emcarShip.length ; i++){
+            //         var emcarX = emcarShip[i][0]*blockSize;
+            //         var emcarY = emcarShip[i][1]*blockSize;
+            //         if(!emcarShip[i][2]){
+            //             ctx.drawImage(boom,emcarX,emcarY,blockSize,blockSize);
+            //         }
+            //     }
+            // }
+            // function boomer(){
+            //     var boommm = null;
+                
+            //     for(var i = 0; i < emcarShip.length; i++){
+                    
+            //         if(!emcarShip[i][2]){
+            //             var ecarX = emcarShip[i][0]*blockSize;
+            //             var ecarY = emcarShip[i][1]*blockSize;
+            //             ctx.drawImage(boom,ecarX,ecarY,blockSize,blockSize);
+            //             boommm = setTimeout(function(){
+            //                 addGrade();
+            //                 emcarShip.splice(i,1);
+            //             },100)
+            //         }
+            //     }
+                
+            // }
+            
+            function addGrade(){ //加分数
+                grade = grade + 1;
+                scoreSp.innerHTML = String(grade);
+                difficulty = difficulty - 5;//难度调节
+                if(difficulty <= 40){
+                    difficulty = 40;
+                }
+            }
+            
+            function HPchange(){
+                if(HP <= 0){
+                    gameOver();
+                }
+                
+                for(var j = 0; j < emcarShip.length ; j ++){
+                    var X = emcarShip[j][0];
+                    if(X < 0){//删除在画布外的车辆
+                        if(emcarShip[j][2] === true){
+                            HP = HP - 2;
+                            HPSp.innerHTML = String(HP);
+                            emcarShip.splice(j,1);
+                        }
+                    }
+                }
+            }
+            
+            function gameOver(){//游戏结束
+            	ctx.clearRect(0,0,canvas.width,canvas.height);//清空画布
+            	clearInterval(flush);
+            	clearInterval(emMove);
+            	clearInterval(creatEmcar);
+            	ctx.font = String(14*devicePpi)+"px Courier New";//设定字体
+            	ctx.fillStyle = "#333";//设定字颜色
+            	ctx.textAlign="center";//设定字居中
+            	ctx.fillText("游戏结束，你得了"+grade+"分", Math.round(canW*blockSize/2), 50*devicePpi);
+            	//显示游戏结束，你得了x分在画布中间
+            }
+            
+            document.onkeydown = function(e){
+                var code = e.keyCode;
+                console.log(mycarX);
+                
+                if(code == 37){//left
+                    if(mycarX === 0){
+                        return;
+                    }
+                    mycarX = mycarX-1;
+                }
+                if(code == 38){//up
+                    if(mycarY === 0){
+                        return;
+                    }
+                    mycarY = mycarY - 1;
+                }
+                if(code == 39){//right
+                    if(mycarX === canW-1){
+                        return;
+                    }
+                    mycarX = mycarX + 1;
+                }
+                if(code == 40){//down
+                    if(mycarY === canH-1){
+                        return;
+                    }
+                    mycarY = mycarY + 1;
+                }
+            }
+            start();
+        </script>
+	</body>
+</html>
