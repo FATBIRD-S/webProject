@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+        <link rel="stylesheet" href="css/main.css" />
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="warp">
+            <div id="play" class="music_body">
+                <div class="search_box">
+                    <input type="text" class="search" v-model="seaName" @keydown.enter="searchEnter" />
+                </div>
+                <div class="content_box">
+                    <div class="music_list">
+                        <ul class="song_list">
+                            <li v-for="music in musicList" @click="musicPlay(music.id)" class="songs_item">
+                                <span >{{music.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="music_image">
+                        <img class="img_out" src="img/disc.png" />
+                        <div class="song_img">
+                            <img class="img_inout" :src="imgURL" />
+                        </div>
+                    </div>
+                    <div class="music_comment">
+                        <ul class="song_list">
+                            <li v-for="data in hotComments" class="hotComment_li">
+                                <div>
+                                    <div class="hotuser">
+                                        <img :src="data.user.avatarUrl" />
+                                        <span>{{data.user.nickname}}</span>
+                                    </div>
+                                    <div class="commentBox">
+                                        {{data.content}}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="music_play_box">
+                    <div class="music_play">
+                        <audio class="audio_look" ref="audio" controls="controls" :src="musicSrc" autoplay="autoplay"></audio>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="js/main.js"></script>
+	</body>
+</html>

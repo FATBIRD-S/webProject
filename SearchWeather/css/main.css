@@ -1,0 +1,132 @@
+body {
+    font-family: "仿宋";
+    background-color: #def2f4cf;
+}
+
+.mainbox {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+}
+
+.search_form {
+    margin: 100px auto;
+    width: 600px;
+    margin: 100px auto 0;
+    /* background-color: aqua; */
+}
+.titlename {
+    font-size: 44px;
+    color: #808080;
+    text-align: center;
+    text-shadow: 2px 2px 5px gray;
+}
+
+.searchbox {
+    margin: 10px auto 0;
+    height: 40px;
+    width: 600px;
+}
+
+.input_text {
+    height: 35px;
+    width: 300px;
+    font-size: 20px;
+    float: left;
+    border: 1px solid #9999;
+    margin: 0 7px 0 110px;
+    border-radius: 5px;
+    box-shadow: 4px 2px 5px dimgray;
+    color: #696969;
+    padding-left: 10px;
+}
+
+.search_button {
+    height: 40px;
+    width: 60px;
+    float: left;
+    border: 0;
+    background-color: #9999;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 5px 2px 5px dimgray;
+}
+.hotcity {
+    margin-top: 5px;
+    height: 15px;
+    border-bottom: 1px solid #9999;
+}
+.hotcity ul {
+    margin-left: 115px;
+    height: 15px;
+}
+.hotcity li {
+    text-align: center;
+    height: 15px;
+    list-style-type: none;
+    margin: 0 5px;
+    float: left;
+    width: 40px;
+    /* height: 15px; */
+}
+
+.hotcity li a {
+    font-size: 10px;
+    height: 15px;
+    display: block;
+}
+
+.search_display {
+    height: 200px;
+    margin: 10px auto;
+    width: 800px;
+    color: darkred;
+    /* background-color: blanchedalmond; */
+}
+
+.search_display ul {
+    text-align: center;
+}
+
+.search_display li {
+    width: 138px;
+    height: 200px;
+    float: left;
+    margin: 0 10px;
+    border-right: 1px solid #9999;
+    border-top: 1px solid #9999;
+    border-left: 1px solid #9999;
+    border-bottom: 1px solid #9999;
+    box-shadow: 3px 3px 5px #9999;
+}
+
+
+.weather_type {
+    font-size: 25px;
+    margin: 30px auto;
+}
+
+.weather_temp {
+    font-size: 12px;
+}
+
+.weather_date {
+    font-size: 15px;
+    margin-top: 30px;
+}
+.notice {
+    width: 800px;
+    text-align: center;
+    margin: 20px auto;
+    color: red;
+    font-size: 17px;
+    text-shadow: 1px 1px 1px gray;
+}
+.canvas {
+    cursor:pointer;
+    display:block;
+    margin:0 auto;
+}
